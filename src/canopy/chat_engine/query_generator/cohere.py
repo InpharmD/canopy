@@ -1,9 +1,9 @@
 from typing import List, Optional, cast
 
-from canopy.chat_engine.query_generator import QueryGenerator
-from canopy.chat_engine.history_pruner.raising import RaisingHistoryPruner
-from canopy.llm import BaseLLM, CohereLLM
-from canopy.models.data_models import Messages, Query
+from src.canopy.chat_engine.query_generator import QueryGenerator
+from src.canopy.chat_engine.history_pruner.raising import RaisingHistoryPruner
+from src.canopy.llm import BaseLLM, CohereLLM
+from src.canopy.models.data_models import Messages, Query
 
 
 class CohereQueryGenerator(QueryGenerator):
