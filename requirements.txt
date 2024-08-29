@@ -45,9 +45,9 @@ openai==1.37.0
 packaging==23.2
 pandas==2.1.4
 pandas-stubs==2.0.3.230814
-pinecone-client==2.2.4
+pinecone-client>=3.0.0
 pinecone-datasets==0.7.0
-pinecone-text==0.7.1
+pinecone-text==0.9.0
 prompt-toolkit==3.0.43
 protobuf==4.25.1
 pyarrow==11.0.0
