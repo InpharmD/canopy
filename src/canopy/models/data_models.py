@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Optional, List, Union, Dict, Literal
 
-from pydantic import  ConfigDict, BaseModel, Field, RootModel
+from pydantic import  ConfigDict, BaseModel, Field
 from typing_extensions import TypedDict
 
 Metadata = Dict[str, Union[str, int, float, List[str]]]
@@ -55,7 +55,7 @@ class Document(BaseModel):
         return v
 
 
-class ContextContent(RootModel, ABC):
+class ContextContent(ABC):
     # Any context should be able to be represented as well formatted text.
     # In the most minimal case, that could simply be a call to `.json()`.
     @abstractmethod
