@@ -3,12 +3,12 @@ from itertools import zip_longest
 from typing import List, Tuple
 
 from pydantic import BaseModel
-from canopy.utils.debugging import CANOPY_DEBUG_INFO
+from src.canopy.utils.debugging import CANOPY_DEBUG_INFO
 
-from canopy.context_engine.context_builder.base import ContextBuilder
-from canopy.knowledge_base.models import QueryResult, DocumentWithScore
-from canopy.tokenizer import Tokenizer
-from canopy.models.data_models import Context, ContextContent
+from src.canopy.context_engine.context_builder.base import ContextBuilder
+from src.canopy.knowledge_base.models import QueryResult, DocumentWithScore
+from src.canopy.tokenizer import Tokenizer
+from src.canopy.models.data_models import Context, ContextContent
 
 
 # ------------- DATA MODELS -------------

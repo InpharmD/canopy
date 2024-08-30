@@ -7,7 +7,7 @@ from typing import List, Optional, Dict, Any, Union
 from pinecone import (ServerlessSpec, PodSpec,
                       PineconeApiException)
 
-from canopy.utils.debugging import CANOPY_DEBUG_INFO
+from src.canopy.utils.debugging import CANOPY_DEBUG_INFO
 
 try:
     from pinecone.grpc import PineconeGRPC as Pinecone
@@ -15,15 +15,15 @@ try:
 except ImportError:
     from pinecone import Pinecone, Index
 
-from canopy.knowledge_base.base import BaseKnowledgeBase
-from canopy.knowledge_base.chunker import Chunker, MarkdownChunker
-from canopy.knowledge_base.record_encoder import (RecordEncoder,
+from src.canopy.knowledge_base.base import BaseKnowledgeBase
+from src.canopy.knowledge_base.chunker import Chunker, MarkdownChunker
+from src.canopy.knowledge_base.record_encoder import (RecordEncoder,
                                                   OpenAIRecordEncoder,
                                                   HybridRecordEncoder)
-from canopy.knowledge_base.models import (KBQueryResult, KBQuery, QueryResult,
+from src.canopy.knowledge_base.models import (KBQueryResult, KBQuery, QueryResult,
                                           KBDocChunkWithScore, DocumentWithScore)
-from canopy.knowledge_base.reranker import Reranker, TransparentReranker
-from canopy.models.data_models import Query, Document
+from src.canopy.knowledge_base.reranker import Reranker, TransparentReranker
+from src.canopy.models.data_models import Query, Document
 
 INDEX_NAME_PREFIX = "canopy--"
 TIMEOUT_INDEX_CREATE = 90

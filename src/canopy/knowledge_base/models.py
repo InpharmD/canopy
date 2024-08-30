@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
-from canopy.models.data_models import Document, Query, SparseVector
+from src.canopy.models.data_models import Document, Query, SparseVector
 
 # TODO: (1) consider moving this to pinecone-text
 # TODO: (2) consider renaming to "Vector" or "DenseVector"

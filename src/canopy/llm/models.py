@@ -1,6 +1,6 @@
 from typing import Optional, List, Union
 
-from pydantic import BaseModel, model_serializer
+from pydantic import BaseModel
 
 
 class FunctionPrimitiveProperty(BaseModel):
@@ -32,7 +32,7 @@ class FunctionParameters(BaseModel):
     required_properties: List[FunctionProperty]
     optional_properties: List[FunctionProperty] = []
 
-    @model_serializer()
+    # @model_serializer()
     def serialize_model(self):
         return {
             "type": "object",

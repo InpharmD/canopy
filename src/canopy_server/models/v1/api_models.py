@@ -2,7 +2,7 @@ from typing import Dict, List, Optional, Union
 
 from pydantic import ConfigDict, BaseModel, Field
 
-from canopy.models.data_models import Messages, Query, Document
+from src.canopy.models.data_models import Messages, Query, Document
 
 # TODO: consider separating these into modules: Chat, Context, Application, etc.
 
