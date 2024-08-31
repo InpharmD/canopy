@@ -426,7 +426,7 @@ from src.canopy.models.api_models import (
     StreamingChatResponse,
     ChatResponse,
 )
-from src.canopy.models.data_models import Context, UserMessage
+from src.canopy.models.data_models import Context  # Removed UserMessage import
 from .models.v1.api_models import (
     ChatRequest,
     ContextQueryRequest,
@@ -648,10 +648,11 @@ async def delete(
     """  # noqa: E501
     try:
         logger.info(f"Delete {len(request.document_ids)} documents")
+        kb.connect()
         await run_in_threadpool(
             kb.delete,
-            document_ids=request.document_ids,
-            namespace=namespace or ""
+            ids=request.document_ids,
+            namespace=namespace,
         )
         return SuccessDeleteResponse()
 
@@ -663,9 +664,8 @@ async def delete(
 @application_router.get(
     "/health",
     response_model=HealthStatus,
-    responses={500: {"description": "Failed to connect to Pinecone or LLM"}},
+    responses={500: {"description": "Service Unavailable"}},
 )
-@app.exception_handler(Exception)
 async def health_check() -> HealthStatus:
     """
     A health check endpoint to verify Canopy connectivity to Pinecone and LLM.
