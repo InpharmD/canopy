@@ -23,7 +23,8 @@ from src.canopy.chat_engine import ChatEngine
 from src.canopy.models.data_models import Document, UserMessage
 from src.canopy.tokenizer import Tokenizer
 from src.canopy.utils.directory import Directory
-from canopy_cli.data_loader import (
+
+from src.canopy_cli.data_loader import (
     load_from_path,
     IDsNotUniqueError,
     DocumentsValidationError)

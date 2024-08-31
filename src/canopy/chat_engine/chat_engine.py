@@ -3,8 +3,7 @@ from typing import Iterable, Union, Optional, cast
 
 from src.canopy.chat_engine.history_pruner import RecentHistoryPruner
 from src.canopy.chat_engine.history_pruner.base import HistoryPruner
-from src.canopy.chat_engine.query_generator import (QueryGenerator,
-                                                FunctionCallingQueryGenerator, )
+from src.canopy.chat_engine.query_generator import (QueryGenerator,FunctionCallingQueryGenerator, )
 from src.canopy.context_engine import ContextEngine
 from src.canopy.tokenizer import Tokenizer
 from src.canopy.llm import BaseLLM, OpenAILLM
@@ -45,7 +44,6 @@ class BaseChatEngine(ABC, ConfigurableMixin):
 
 
 class ChatEngine(BaseChatEngine):
-
     """
     Chat engine is an object that implements end to end chat API with [RAG](https://www.pinecone.io/learn/retrieval-augmented-generation/).
     Given chat history, the chat engine orchestrates its underlying context engine and LLM to run the following steps:
