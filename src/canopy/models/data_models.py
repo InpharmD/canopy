@@ -6,6 +6,8 @@ from pydantic import field_validator, ConfigDict, BaseModel, Field, RootModel
 
 from typing_extensions import TypedDict
 
+from pydantic import BaseModel
+
 Metadata = Dict[str, Union[str, int, float, List[str]]]
 
 
@@ -127,3 +129,16 @@ class SystemMessage(MessageBase):
 class AssistantMessage(MessageBase):
     role: Literal[Role.ASSISTANT] = Role.ASSISTANT
     content: str
+
+
+class ContextContent(BaseModel):
+    # Define common fields here, if any
+    @abstractmethod
+    def to_text(self, **kwargs) -> str:
+        pass
+
+class StringContextContent(ContextContent):
+    root: str
+
+    def to_text(self, **kwargs) -> str:
+        return self.root
