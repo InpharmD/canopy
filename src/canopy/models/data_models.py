@@ -79,6 +79,9 @@ class Context(BaseModel):
     num_tokens: int
     debug_info: dict = Field(default_factory=dict, exclude=True)
 
+    class Config:
+        arbitrary_types_allowed = True
+
     def to_text(self, **kwargs) -> str:
         return self.content.to_text(**kwargs)
 
