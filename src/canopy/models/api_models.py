@@ -2,7 +2,7 @@ from typing import Optional, Sequence, Iterable
 
 from pydantic import BaseModel, Field
 
-from canopy.models.data_models import MessageBase
+from src.canopy.models.data_models import MessageBase
 
 
 class _Choice(BaseModel):

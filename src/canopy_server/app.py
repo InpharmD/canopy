@@ -9,12 +9,13 @@ import openai
 import yaml
 from dotenv import load_dotenv
 
-from canopy.llm import BaseLLM
-from canopy.tokenizer import Tokenizer
-from canopy.knowledge_base import KnowledgeBase
-from canopy.context_engine import ContextEngine
-from canopy.chat_engine import ChatEngine
+from src.canopy.llm import BaseLLM
+from src.canopy.tokenizer import Tokenizer
+from src.canopy.knowledge_base import KnowledgeBase
+from src.canopy.context_engine import ContextEngine
+from src.canopy.chat_engine import ChatEngine
 from starlette.concurrency import run_in_threadpool
+
 from sse_starlette.sse import EventSourceResponse
 
 from fastapi import (
@@ -26,11 +27,11 @@ from fastapi import (
 import uvicorn
 from typing import cast, Union, Optional
 
-from canopy.models.api_models import (
+from src.canopy.models.api_models import (
     StreamingChatResponse,
     ChatResponse,
 )
-from canopy.models.data_models import Context, UserMessage
+from src.canopy.models.data_models import Context, UserMessage
 from .models.v1.api_models import (
     ChatRequest,
     ContextQueryRequest,
@@ -42,9 +43,9 @@ from .models.v1.api_models import (
     ContextResponse,
 )
 
-from canopy.llm.openai import OpenAILLM
-from canopy_cli.errors import ConfigError
-from canopy import __version__
+from src.canopy.llm.openai import OpenAILLM
+from src.canopy_cli.errors import ConfigError
+from src.canopy import __version__
 
 APIChatResponse = Union[ChatResponse, EventSourceResponse]
 
@@ -218,12 +219,18 @@ async def upsert(
     The documents are chunked and encoded, then the resulting encoded chunks are sent to the Pinecone index in batches.
     """  # noqa: E501
     try:
-        logger.info(f"Upserting {len(request.documents)} documents")
+        # logger.info(f"Upserting {len(request.documents)} documents")
+        upsert_index_name = request.index_name or os.getenv("INDEX_NAME")
+        # logger.info(f"upsert_index_name: {upsert_index_name}")
+        kb_upsert = KnowledgeBase(index_name=upsert_index_name)
+        kb_upsert.connect()
+
         await run_in_threadpool(
-            kb.upsert,
+            kb_upsert.upsert, 
             documents=request.documents,
             batch_size=request.batch_size,
             namespace=namespace
+            
         )
 
         return SuccessUpsertResponse()
@@ -387,3 +394,4 @@ def start(host="0.0.0.0", port=8000, reload=False, config_file=None):
 
 if __name__ == "__main__":
     start()
+

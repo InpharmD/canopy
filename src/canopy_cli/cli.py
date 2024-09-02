@@ -17,17 +17,18 @@ import openai
 from openai import APIError as OpenAI_APIError
 from urllib.parse import urljoin
 
-from canopy.knowledge_base import KnowledgeBase, list_canopy_indexes
-from canopy.knowledge_base.chunker import Chunker
-from canopy.chat_engine import ChatEngine
-from canopy.models.data_models import Document, UserMessage
-from canopy.tokenizer import Tokenizer
-from canopy.utils.directory import Directory
-from canopy_cli.data_loader import (
+from src.canopy.knowledge_base import KnowledgeBase, list_canopy_indexes
+from src.canopy.knowledge_base.chunker import Chunker
+from src.canopy.chat_engine import ChatEngine
+from src.canopy.models.data_models import Document, UserMessage
+from src.canopy.tokenizer import Tokenizer
+from src.canopy.utils.directory import Directory
+
+from src.canopy_cli.data_loader import (
     load_from_path,
     IDsNotUniqueError,
     DocumentsValidationError)
-from canopy_cli.errors import CLIError
+from src.canopy_cli.errors import CLIError
 
 from canopy import __version__
 

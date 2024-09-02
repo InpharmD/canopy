@@ -1,18 +1,17 @@
 from abc import ABC, abstractmethod
 from typing import Iterable, Union, Optional, cast
 
-from canopy.chat_engine.history_pruner import RecentHistoryPruner
-from canopy.chat_engine.history_pruner.base import HistoryPruner
-from canopy.chat_engine.query_generator import (QueryGenerator,
-                                                FunctionCallingQueryGenerator, )
-from canopy.context_engine import ContextEngine
-from canopy.tokenizer import Tokenizer
-from canopy.llm import BaseLLM, OpenAILLM
-from canopy.models.api_models import (StreamingChatChunk, ChatResponse,
+from src.canopy.chat_engine.history_pruner import RecentHistoryPruner
+from src.canopy.chat_engine.history_pruner.base import HistoryPruner
+from src.canopy.chat_engine.query_generator import (QueryGenerator,FunctionCallingQueryGenerator, )
+from src.canopy.context_engine import ContextEngine
+from src.canopy.tokenizer import Tokenizer
+from src.canopy.llm import BaseLLM, OpenAILLM
+from src.canopy.models.api_models import (StreamingChatChunk, ChatResponse,
                                       StreamingChatResponse, )
-from canopy.models.data_models import Context, Messages, SystemMessage
-from canopy.utils.config import ConfigurableMixin
-from canopy.utils.debugging import CANOPY_DEBUG_INFO
+from src.canopy.models.data_models import Context, Messages, SystemMessage
+from src.canopy.utils.config import ConfigurableMixin
+from src.canopy.utils.debugging import CANOPY_DEBUG_INFO
 
 DEFAULT_SYSTEM_PROMPT = """Use the following pieces of context to answer the user question at the next messages. This context retrieved from a knowledge database and you should use only the facts from the context to answer. Always remember to include the source to the documents you used from their 'source' field in the format 'Source: $SOURCE_HERE'.
 If you don't know the answer, just say that you don't know, don't try to make up an answer, use the context.
@@ -45,7 +44,6 @@ class BaseChatEngine(ABC, ConfigurableMixin):
 
 
 class ChatEngine(BaseChatEngine):
-
     """
     Chat engine is an object that implements end to end chat API with [RAG](https://www.pinecone.io/learn/retrieval-augmented-generation/).
     Given chat history, the chat engine orchestrates its underlying context engine and LLM to run the following steps:
@@ -58,13 +56,13 @@ class ChatEngine(BaseChatEngine):
 
     Example:
 
-        >>> from canopy.chat_engine import ChatEngine
+        >>> from src.canopy.chat_engine import ChatEngine
         >>> chat_engine = ChatEngine(context_engine)
 
     Where you can follow the instructions in the [context engine](../context_engine/context_engine) to create a context engine.
     Then you can use the chat engine to chat with a user:
 
-        >>> from canopy.models.data_models import UserMessage
+        >>> from src.canopy.models.data_models import UserMessage
         >>> messages = [UserMessage(content="Hello! what is the capital of France?")]
         >>> response = chat_engine.chat(messages)
         >>> print(response.choices[0].message.content)
@@ -189,7 +187,7 @@ class ChatEngine(BaseChatEngine):
 
         Examples:
 
-            >>> from canopy.models.data_models import UserMessage
+            >>> from src.canopy.models.data_models import UserMessage
             >>> messages = [UserMessage(content="Hello! what is the capital of France?")]
             >>> response = chat_engine.chat(messages)
             >>> print(response.choices[0].message.content)

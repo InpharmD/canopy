@@ -3,7 +3,10 @@ from enum import Enum
 from typing import Optional, List, Union, Dict, Literal
 
 from pydantic import field_validator, ConfigDict, BaseModel, Field, RootModel
+
 from typing_extensions import TypedDict
+
+from pydantic import BaseModel
 
 Metadata = Dict[str, Union[str, int, float, List[str]]]
 
@@ -79,8 +82,15 @@ class Context(BaseModel):
     num_tokens: int
     debug_info: dict = Field(default_factory=dict, exclude=True)
 
+    class Config:
+        arbitrary_types_allowed = True
+
     def to_text(self, **kwargs) -> str:
         return self.content.to_text(**kwargs)
+
+
+
+
 
 
 # --------------------- LLM models ------------------------
@@ -119,3 +129,16 @@ class SystemMessage(MessageBase):
 class AssistantMessage(MessageBase):
     role: Literal[Role.ASSISTANT] = Role.ASSISTANT
     content: str
+
+
+class ContextContent(BaseModel):
+    # Define common fields here, if any
+    @abstractmethod
+    def to_text(self, **kwargs) -> str:
+        pass
+
+class StringContextContent(ContextContent):
+    root: str
+
+    def to_text(self, **kwargs) -> str:
+        return self.root
